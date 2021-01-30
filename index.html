@@ -111,12 +111,15 @@
         //DEclared this Two for calculating The ticket price
         let firstClassPrice = 0; 
         let economyClassPrice = 0;
+
+
         /*Here declaring a function with two parameter.
         Ticket is the id name and isIncrease boolean data. */
         function plusTicketCounter(Ticket, isIncrease){
             const ticketCount = document.getElementById(Ticket + "Count");
             let ticketNumber = parseInt(ticketCount.value);
-            if(isIncrease == true){
+            //Checking the condition for adding or removing from current ticket
+            if(isIncrease == true){ 
                 ticketNumber++;
             }if(isIncrease == false && ticketNumber > 0){
                 ticketNumber--;
@@ -130,21 +133,25 @@
             }
             const subtotalAmount = firstClassPrice + economyClassPrice;
             document.getElementById("subtotalAmount").innerText = subtotalAmount;
-            calculateTax(subtotalAmount);
-            calculateTotal(subtotalAmount, parseFloat(document.getElementById("taxAmount").innerText));
+            calculateTax(subtotalAmount);//Calculating the tax respected to Subtotal
+            calculateTotal(subtotalAmount, parseFloat(document.getElementById("taxAmount").innerText));         //Calculating the total amount by adding tax and subtotal.
         }
+
 
         //Here Calculating the tax of the subtotal
         function calculateTax(subtotal){
             const taxAmount = subtotal * .1;
             document.getElementById("taxAmount").innerText = taxAmount;
         }
+
+
+        //Calculating the total Amount
         function calculateTotal(subtotal, taxAmount){
             const totalAmount = subtotal + taxAmount;
             document.getElementById("totalAmount").innerText = totalAmount;
-
-
         } 
+
+
         //alertBox Function will show a alert box with all ticket and cost information.
         function alertBoxDisplay(){
             const firstClassTicket = document.getElementById("firstClassCount").value;
