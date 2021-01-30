@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cruise Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+
+        <div class="booking-content">
+            <h1>Cruise Queen</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book./p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Book Ocean Time</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhaka, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="firstClassCount" class="inp-style inp-width" type="number" value="0" name="">
+                </div>
+                <div class="plus-minus-btn">
+                    <p> <span onclick="plusTicketCounter('firstClass', true)" class="sign">+</span> <span onclick="plusTicketCounter('firstClass', false)" class="sign">-</span></p>
+                </div>
+            </div>
+            
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <input id="economyClassCount" class="inp-style inp-width" type="number" value="0" name="">
+                </div>
+                <div class="plus-minus-btn">
+                    <p> <span onclick="plusTicketCounter('economyClass', true)" class="sign">+</span> <span onclick="plusTicketCounter('economyClass', false)" class="sign">-</span> </p>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p>$ <span id="subtotalAmount">00</span> </p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p>$ <span id="taxAmount">00</span> </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p>$ <span id="totalAmount" >00</span> </p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="alertBoxDisplay()" class="btn-style">Book Now</button>
+        </div>
+    </main>
+
+    <!--Thank You-->
+    <script >
+        //DEclared this Two for calculating The ticket price
+        let firstClassPrice = 0; 
+        let economyClassPrice = 0;
+        /*Here declaring a function with two parameter.
+        Ticket is the id name and isIncrease boolean data. */
+        function plusTicketCounter(Ticket, isIncrease){
+            const ticketCount = document.getElementById(Ticket + "Count");
+            let ticketNumber = parseInt(ticketCount.value);
+            if(isIncrease == true){
+                ticketNumber++;
+            }if(isIncrease == false && ticketNumber > 0){
+                ticketNumber--;
+            }
+            ticketCount.value = ticketNumber;
+            if(Ticket == "firstClass"){
+                firstClassPrice = ticketNumber * 150;
+            }
+            if(Ticket == "economyClass"){
+                economyClassPrice = ticketNumber * 100;
+            }
+            const subtotalAmount = firstClassPrice + economyClassPrice;
+            document.getElementById("subtotalAmount").innerText = subtotalAmount;
+            calculateTax(subtotalAmount);
+            calculateTotal(subtotalAmount, parseFloat(document.getElementById("taxAmount").innerText));
+        }
+
+        //Here Calculating the tax of the subtotal
+        function calculateTax(subtotal){
+            const taxAmount = subtotal * .1;
+            document.getElementById("taxAmount").innerText = taxAmount;
+        }
+        function calculateTotal(subtotal, taxAmount){
+            const totalAmount = subtotal + taxAmount;
+            document.getElementById("totalAmount").innerText = totalAmount;
+
+
+        } 
+        //alertBox Function will show a alert box with all ticket and cost information.
+        function alertBoxDisplay(){
+            const firstClassTicket = document.getElementById("firstClassCount").value;
+            const economyClassTicket = document.getElementById("economyClassCount").value;
+            const totalCost =  document.getElementById("totalAmount").innerText;
+            alert("Your booked " + firstClassTicket + " first Class Ticket &  " + economyClassTicket + " economy Class Ticket." +"\n"  + "Your Total Cost is :" + totalCost );
+        }
+    </script>
+</body>
+
+</html>
